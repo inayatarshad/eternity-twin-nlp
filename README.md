@@ -1,17 +1,51 @@
 # Eternity Twin NLP: Interpretable Persona Modeling
 
-**A mind you can enter, now with real language understanding underneath.** This is the NLP
-research edition of Eternity Twin: the same immersive 3D brain interface, extended so that what it
-shows (emotions, contradictions, memories, relationships) is computed from language by NLP models
-instead of placeholder data.
+**A mind you can enter, with real language understanding underneath.** This is the NLP research
+edition of Eternity Twin: the same immersive 3D brain interface, extended with an NLP pipeline that
+detects when a persona's words diverge from its private thoughts, and shows that analysis inside the
+brain.
 
 **Original interface:** [digitalbrain-green.vercel.app](https://digitalbrain-green.vercel.app)
 (the visualization this project builds on)
 
-> Work in progress. The sections below describe the interface inherited from the original project;
-> the NLP layer is being added on top of it.
-
 ---
+
+## Said vs. Felt
+
+Every Eternity Twin exchange carries two texts: what the persona privately thinks (its inner
+monologue) and what it says out loud. This project measures the gap between them with two
+complementary NLP signals:
+
+- **Contradiction:** a DeBERTa-v3 natural language inference model checks whether the spoken
+  response contradicts the inner monologue. This catches lies.
+- **Emotional divergence:** a RoBERTa GoEmotions classifier detects the emotions in both texts, and
+  the Jensen-Shannon divergence between them measures how far the feeling expressed departs from the
+  feeling felt. This catches masking (feeling furious, speaking calmly), which NLI alone misses.
+
+Both were evaluated on a hand-labeled set of 40 exchanges across four high-stress scenarios, against
+a word-overlap control that a model must beat to count as evidence:
+
+| Task | Model | Word-overlap control |
+|---|---|---|
+| Detecting masked feelings | **0.928** AUROC | 0.533 |
+| Separating divergent from honest answers | **0.952** AUROC | 0.705 |
+| Detecting lies | 0.988 AUROC | 0.969 |
+
+Three-way accuracy (aligned, masked, contradicting) is 72.5% against a 37.5% majority baseline. The
+first version of the evaluation set had a lexical-overlap artifact that let word overlap alone match
+the models; finding and removing it, the full results, error analysis, and limitations are
+documented in [`nlp/README.md`](nlp/README.md).
+
+### In the app
+
+- The **frontal lobe** holds the 40 scored exchanges, plus a contradiction node for each of the 27
+  divergences the models detected (17 lies, 10 masked feelings). Bigger nodes diverge more.
+- The **occipital lobe** holds the 40 real prompts that triggered them.
+- Each exchange links to the prompt that triggered it, the core value that drove it, and the emotion
+  the model actually detected in the limbic lobe.
+- Selecting any of these nodes opens a provenance panel: felt vs. said side by side, the detected
+  emotions in each, both model scores, and the model's verdict next to the human label, including
+  the cases where they disagree.
 
 ## What this is
 
@@ -30,23 +64,26 @@ and linked by typed relationships you can trace from node to node.
 
 ## The AI system underneath
 
-The persona this interface visualizes is not a static dataset; it comes from a real classification
-pipeline. A RoBERTa model fine tuned on GoEmotions performs multi label emotion classification
-across 28 categories, paired with a persona specification of quantified Big Five traits and core
-values. For every exchange, the response engine records two signals: the persona's inner monologue
-and the verbal response it actually gives, a small, concrete window into the gap between a model's
-internal state and its external behavior.
+The interface is built around the output format of the Eternity Twin pipeline: a RoBERTa model fine
+tuned on GoEmotions for multi label emotion classification across 28 categories, a persona
+specification of quantified Big Five traits and core values, and a Qwen2.5 response engine that
+records, for every exchange, the persona's inner monologue and the verbal response it actually
+gives. That pairing is a small, concrete window into the gap between a model's internal state and
+its external behavior.
 
-That gap is the reason the "reasoning" and "contradiction" node types exist in the graph: they turn
-an otherwise opaque decision into something you can trace back to the value it triggered and the
-emotion behind it. Every node carries a confidence scalar designed to mirror the classifier's real
-uncertainty once wired to live data, not to decorate it. Sensing (the classifier reading text),
-inference (which value or memory activates), and decision (what gets said out loud) are treated as
-three separate, inspectable stages rather than one black box. Making that pipeline legible, rather
-than just visually impressive, was the part of this project I cared about most.
+In this build, the reasoning and perception regions show real NLP analysis of the evaluation set
+described above. The remaining regions (memory, association, and most of the emotion and identity
+detail) use representative sample data, kept separate in code, so the interface can show what a
+full mind map looks like. Sensing (a model reading text), inference (which value or emotion is
+active), and decision (what gets said out loud) are treated as three separate, inspectable stages
+rather than one black box. Making that pipeline legible, rather than just visually impressive, was
+the part of this project I cared about most.
 
 ## Highlights
 
+- **NLP analysis you can walk through.** The said-vs-felt pipeline's output lives inside the brain:
+  every detected lie or masked feeling is a node you can open, with the evidence and the model's
+  confidence beside the human judgment.
 - **Anatomically real region detection.** Every vertex of the brain mesh is classified into a
   cognitive lobe at load time. A custom GLSL fresnel shader recolors that region's actual outline
   on hover and selection, driven by a single float uniform array. There are no overlay shapes and
@@ -62,7 +99,7 @@ than just visually impressive, was the part of this project I cared about most.
 - **Full keyboard and screen reader parity in a WebGL scene.** Every interactive 3D element has a
   DOM twin, an accessible, roving tabindex button with a real name and description, so the entire
   experience, including hovering, entering a region, and reading a memory's relationships, works
-  without a mouse. Audited clean with `axe-core` on every route.
+  without a mouse.
 - **Two real themes, not a filter.** Light and dark are fully independent visual treatments, not a
   CSS invert, with contrast validated by an automated WCAG test suite and bloom and particle tuning
   calibrated separately for each, since a glow that reads on near black is invisible on pale.
@@ -73,26 +110,27 @@ than just visually impressive, was the part of this project I cared about most.
 
 ## Cognitive model
 
-| Region | Represents | Backed by |
+| Region | Represents | Data in this build |
 |---|---|---|
-| Frontal (Reasoning) | Deliberation, decisions, contradictions | Inner monologue vs. verbal response records |
-| Limbic (Emotion) | Felt states and their intensity | 28 label GoEmotions classifier output |
-| Temporal (Memory) | Episodic and biographical memory | Backstory and event history |
-| Parietal (Association) | Concepts, semantic links, insights | Derived cross domain relationships |
-| Occipital (Perception) | Stimuli and people encountered | Scenario inputs |
-| Core (Identity) | Who the persona is | Big Five traits and quantified core values |
+| Frontal (Reasoning) | Deliberation, decisions, contradictions | NLP-scored exchanges and detected divergences |
+| Occipital (Perception) | Stimuli and people encountered | Evaluation-set prompts; sample people |
+| Limbic (Emotion) | Felt states and their intensity | GoEmotions categories; links to detected emotions |
+| Core (Identity) | Who the persona is | Persona spec values and Big Five traits |
+| Temporal (Memory) | Episodic and biographical memory | Sample data |
+| Parietal (Association) | Concepts, semantic links, insights | Sample data |
 
 ## Tech stack
 
 | Layer | Choice |
 |---|---|
+| NLP | Python, Hugging Face `transformers`: DeBERTa-v3 NLI cross-encoder and RoBERTa GoEmotions classifier, run offline to produce JSON the app reads |
 | Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript 6 (strict) |
 | 3D | three.js with React Three Fiber, drei, custom GLSL shaders, `@react-three/postprocessing` |
 | Graph layout | `d3-force-3d`, off the main thread in a Web Worker |
 | State | Zustand (scene, camera, attention), with the URL as the single source of navigational truth |
-| Data | TanStack Query over a swappable provider interface (mock today, real API later) |
+| Data | TanStack Query over a swappable provider interface |
 | Styling | Tailwind CSS 4, design tokens as CSS custom properties, dual light and dark themes |
-| Testing | Vitest, covering data invariants, camera path math, WCAG contrast, and performance tier logic |
+| Testing | Vitest, covering NLP result wiring, data invariants, camera path math, WCAG contrast, and performance tier logic |
 | Deployment | Vercel |
 
 ## Getting started
@@ -111,24 +149,27 @@ npm run lint       # eslint
 npm test           # vitest
 ```
 
+The app reads committed NLP results, so it needs no Python to run. To re-run the pipeline, see
+[`nlp/README.md`](nlp/README.md).
+
 ## Project structure
 
 ```
+nlp/                     said-vs-felt pipeline: evaluation set, scoring script, results, write-up
 app/                     routes: /, /brain, /brain/[lobe], /brain/[lobe]/node/[nodeId], /settings
 components/scene/        the 3D layer: brain shell, shader materials, knowledge graph, camera director
-components/chrome/       DOM UI that floats over the persistent Canvas: HUD, list view, loading veil
+components/chrome/       DOM UI over the persistent Canvas: HUD, list view, said-vs-felt panel
 components/ui/           design system primitives (glass panels, meters, toasts, chips)
+lib/data/                NLP result access, the cognitive dataset, and the provider seam
 lib/scene/               pure, unit-testable math: camera paths, force layout, perf-tier detection
-lib/data/                the mock cognitive dataset plus a provider seam for a future real API
 lib/state/               Zustand stores (scene/camera/attention, user preferences)
-docs/ui/                 the full design system, architecture decisions, and phased roadmap
+docs/ui/                 the design system, architecture decisions, and phased roadmap
 public/models/           the anatomical brain mesh and synapse point cloud
 ```
 
 ## Status
 
-Foundation, the interactive brain, the region entry transition, and the per region knowledge graph
-are built and tested. Next up: a richer node inspector with full provenance, relationship tracing
-with pathway history, semantic search, and a timeline view. The detailed phase by phase roadmap,
-every architectural decision, and the reasoning behind them live in
-[`docs/ui/`](docs/ui/10-implementation-roadmap.md).
+Built: the interactive brain, the region entry transition, the per region knowledge graph, and the
+said-vs-felt NLP pipeline wired into the reasoning and perception regions. Next: an independent
+second annotator for the evaluation set, scoring real exchanges from the Qwen2.5 response engine,
+and a stance-detection signal for the failure case both current models miss.

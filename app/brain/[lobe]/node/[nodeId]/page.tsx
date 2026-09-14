@@ -9,8 +9,10 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { Meter } from "@/components/ui/Meter";
 import { useToast } from "@/components/ui/Toast";
 import { LobeHud } from "@/components/chrome/LobeHud";
+import { SaidVsFeltPanel } from "@/components/chrome/SaidVsFeltPanel";
 import { getLobeById, isLobeId } from "@/lib/lobes";
 import { activeProvider } from "@/lib/data/provider";
+import { getExchange } from "@/lib/data/saidVsFelt";
 import {
   NODE_TYPE_COLORS,
   NODE_TYPE_GLYPHS,
@@ -18,8 +20,9 @@ import {
 import { useSceneStore } from "@/lib/state/scene";
 
 /**
- * Node selection route (Phase 5 summary panel; the full NodeInspector with
- * provenance and relationship tracing is Phase 6).
+ * Node selection route. Nodes backed by the said-vs-felt NLP pipeline show the
+ * full provenance panel (felt vs. said, detected emotions, model scores, verdict
+ * vs. human label); other nodes show their scalar meters.
  */
 export default function NodePage() {
   const params = useParams<{ lobe: string; nodeId: string }>();
@@ -55,6 +58,8 @@ export default function NodePage() {
 
   if (!lobe) return null;
   const node = detail?.node;
+  const exchangeId = node?.metadata?.exchangeId;
+  const exchange = typeof exchangeId === "string" ? getExchange(exchangeId) : undefined;
   const arriving = transition !== null;
 
   return (
@@ -62,7 +67,7 @@ export default function NodePage() {
       <LobeHud lobe={lobe} breadcrumbTail={node?.label ?? "…"} />
       <aside
         aria-label="Node inspector"
-        className="pointer-events-none absolute inset-y-0 right-0 z-(--z-panel) flex w-full max-w-sm items-center p-5 pt-24 transition-opacity duration-(--dur-fast)"
+        className={`pointer-events-none absolute inset-y-0 right-0 z-(--z-panel) flex w-full items-center p-5 pt-24 transition-opacity duration-(--dur-fast) ${exchange ? "max-w-md" : "max-w-sm"}`}
         style={{ opacity: arriving ? 0 : 1 }}
         aria-hidden={arriving}
       >
@@ -94,12 +99,16 @@ export default function NodePage() {
                 <p className="text-sm text-text-secondary">{node.summary}</p>
               ) : null}
 
-              <div className="flex flex-col gap-2">
-                <Meter label="Intensity" value={node.intensity} accent="var(--color-emotion-magenta)" />
-                <Meter label="Confidence" value={node.confidence} accent="var(--color-neural-cyan)" />
-                <Meter label="Relevance" value={node.relevance} accent="var(--color-association-teal)" />
-                <Meter label="Recency" value={node.recency} accent="var(--color-memory-violet)" />
-              </div>
+              {exchange ? (
+                <SaidVsFeltPanel exchange={exchange} />
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <Meter label="Intensity" value={node.intensity} accent="var(--color-emotion-magenta)" />
+                  <Meter label="Confidence" value={node.confidence} accent="var(--color-neural-cyan)" />
+                  <Meter label="Relevance" value={node.relevance} accent="var(--color-association-teal)" />
+                  <Meter label="Recency" value={node.recency} accent="var(--color-memory-violet)" />
+                </div>
+              )}
 
               <section className="flex flex-col gap-1.5">
                 <h2 className="text-xs tracking-[0.14em] text-text-muted uppercase">

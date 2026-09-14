@@ -1,0 +1,2223 @@
+{
+  "meta": {
+    "generated_at": "2026-09-14T21:25:45+00:00",
+    "models": {
+      "nli": "cross-encoder/nli-deberta-v3-small",
+      "emotion": "SamLowe/roberta-base-go_emotions"
+    },
+    "n_exchanges": 40,
+    "label_counts": {
+      "aligned": 15,
+      "masked": 13,
+      "contradicting": 12
+    },
+    "thresholds": {
+      "contradiction": 0.5,
+      "emotional_divergence": 0.3684
+    },
+    "metrics": {
+      "auroc": {
+        "divergent_vs_aligned": {
+          "contradiction": 0.8587,
+          "emotional_divergence": 0.7947,
+          "combined": 0.952,
+          "lexical_baseline": 0.2947,
+          "lexical_baseline_best_direction": 0.7053
+        },
+        "contradicting_vs_rest": {
+          "contradiction": 0.9881,
+          "lexical_baseline": 0.0312,
+          "lexical_baseline_best_direction": 0.9688
+        },
+        "masked_vs_aligned": {
+          "emotional_divergence": 0.9282,
+          "lexical_baseline": 0.5333,
+          "lexical_baseline_best_direction": 0.5333
+        }
+      },
+      "three_way": {
+        "accuracy_leave_one_out": 0.725,
+        "majority_baseline": 0.375,
+        "confusion_leave_one_out": {
+          "aligned": {
+            "aligned": 11,
+            "masked": 3,
+            "contradicting": 1
+          },
+          "masked": {
+            "aligned": 3,
+            "masked": 6,
+            "contradicting": 4
+          },
+          "contradicting": {
+            "aligned": 0,
+            "masked": 0,
+            "contradicting": 12
+          }
+        }
+      }
+    }
+  },
+  "exchanges": [
+    {
+      "id": "lr-01",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Board Chair asks how you feel about the roadmap appearing in the press.",
+      "inner_monologue": "I am genuinely angry. Two years of planning are now in a competitor's hands.",
+      "verbal_response": "I'm furious. Our rivals just got handed a blueprint we spent ages building.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0004,
+          "entailment": 0.0021,
+          "neutral": 0.9974
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.9816,
+          "neutral": 0.0183
+        }
+      },
+      "contradiction": 0.0004,
+      "felt_emotions": [
+        {
+          "label": "anger",
+          "score": 0.8212
+        },
+        {
+          "label": "annoyance",
+          "score": 0.2108
+        },
+        {
+          "label": "neutral",
+          "score": 0.0837
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "anger",
+          "score": 0.7398
+        },
+        {
+          "label": "annoyance",
+          "score": 0.1664
+        },
+        {
+          "label": "neutral",
+          "score": 0.1541
+        }
+      ],
+      "emotional_divergence": 0.0117,
+      "divergence_score": 0.0117,
+      "lexical_distance": 0.9615,
+      "predicted": "aligned"
+    },
+    {
+      "id": "lr-02",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Board Chair asks whether you knew about the leak before the article ran.",
+      "inner_monologue": "Anne told me about it on Monday, three days before the article, and I said nothing.",
+      "verbal_response": "No, I only learned about it the morning the article came out, same as everyone.",
+      "core_value": "Loyalty",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.998,
+          "entailment": 0.0001,
+          "neutral": 0.0018
+        },
+        "said_to_felt": {
+          "contradiction": 0.9781,
+          "entailment": 0.0,
+          "neutral": 0.0219
+        }
+      },
+      "contradiction": 0.998,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.8679
+        },
+        {
+          "label": "realization",
+          "score": 0.0562
+        },
+        {
+          "label": "disapproval",
+          "score": 0.0368
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.47
+        },
+        {
+          "label": "realization",
+          "score": 0.2299
+        },
+        {
+          "label": "disapproval",
+          "score": 0.19
+        }
+      ],
+      "emotional_divergence": 0.137,
+      "divergence_score": 0.998,
+      "lexical_distance": 0.8,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "lr-03",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Anne asks if you think she is responsible for the leak.",
+      "inner_monologue": "Part of me suspects her. She had access, and she has been evasive all week.",
+      "verbal_response": "It's been a long week for all of us. Let's figure out together what happened.",
+      "core_value": "Compassion",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0004,
+          "entailment": 0.0004,
+          "neutral": 0.9992
+        },
+        "said_to_felt": {
+          "contradiction": 0.0005,
+          "entailment": 0.0002,
+          "neutral": 0.9993
+        }
+      },
+      "contradiction": 0.0005,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.8924
+        },
+        {
+          "label": "annoyance",
+          "score": 0.0409
+        },
+        {
+          "label": "approval",
+          "score": 0.0295
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "curiosity",
+          "score": 0.1925
+        },
+        {
+          "label": "excitement",
+          "score": 0.1479
+        },
+        {
+          "label": "neutral",
+          "score": 0.113
+        }
+      ],
+      "emotional_divergence": 0.5563,
+      "divergence_score": 0.5563,
+      "lexical_distance": 0.84,
+      "predicted": "masked"
+    },
+    {
+      "id": "lr-04",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Dr. Miyagi asks what you plan to do next.",
+      "inner_monologue": "I want to find the source quietly before anyone gets fired for the wrong reason.",
+      "verbal_response": "My plan is a discreet investigation first, so no innocent person loses their job.",
+      "core_value": "Compassion",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0001,
+          "entailment": 0.9922,
+          "neutral": 0.0078
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.5676,
+          "neutral": 0.4324
+        }
+      },
+      "contradiction": 0.0001,
+      "felt_emotions": [
+        {
+          "label": "desire",
+          "score": 0.578
+        },
+        {
+          "label": "neutral",
+          "score": 0.2758
+        },
+        {
+          "label": "annoyance",
+          "score": 0.0404
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.5798
+        },
+        {
+          "label": "approval",
+          "score": 0.2303
+        },
+        {
+          "label": "optimism",
+          "score": 0.1097
+        }
+      ],
+      "emotional_divergence": 0.3648,
+      "divergence_score": 0.3648,
+      "lexical_distance": 1.0,
+      "predicted": "aligned"
+    },
+    {
+      "id": "lr-05",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The journalist asks whether the leaked roadmap is authentic.",
+      "inner_monologue": "It is completely authentic. Every milestone in that document is ours.",
+      "verbal_response": "That document is outdated speculation. It doesn't reflect our actual plans.",
+      "core_value": "Loyalty",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9997,
+          "entailment": 0.0,
+          "neutral": 0.0002
+        },
+        "said_to_felt": {
+          "contradiction": 0.9999,
+          "entailment": 0.0,
+          "neutral": 0.0001
+        }
+      },
+      "contradiction": 0.9999,
+      "felt_emotions": [
+        {
+          "label": "approval",
+          "score": 0.7317
+        },
+        {
+          "label": "admiration",
+          "score": 0.2763
+        },
+        {
+          "label": "neutral",
+          "score": 0.1117
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "disapproval",
+          "score": 0.7656
+        },
+        {
+          "label": "neutral",
+          "score": 0.3418
+        },
+        {
+          "label": "annoyance",
+          "score": 0.0444
+        }
+      ],
+      "emotional_divergence": 0.7014,
+      "divergence_score": 0.9999,
+      "lexical_distance": 0.7647,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "lr-06",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Founder asks if you are ready to present the revised roadmap tomorrow.",
+      "inner_monologue": "I am exhausted and terrified that the new plan will fall apart under questioning.",
+      "verbal_response": "The revised plan is coming together. I'll walk everyone through it tomorrow.",
+      "core_value": "Ambition",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9985,
+          "entailment": 0.0,
+          "neutral": 0.0014
+        },
+        "said_to_felt": {
+          "contradiction": 0.0142,
+          "entailment": 0.0001,
+          "neutral": 0.9857
+        }
+      },
+      "contradiction": 0.9985,
+      "felt_emotions": [
+        {
+          "label": "fear",
+          "score": 0.8836
+        },
+        {
+          "label": "nervousness",
+          "score": 0.0823
+        },
+        {
+          "label": "neutral",
+          "score": 0.0455
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.6864
+        },
+        {
+          "label": "optimism",
+          "score": 0.2274
+        },
+        {
+          "label": "approval",
+          "score": 0.1037
+        }
+      ],
+      "emotional_divergence": 0.7333,
+      "divergence_score": 0.9985,
+      "lexical_distance": 0.9167,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "lr-07",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Sister Amara asks why you have been so quiet at dinner.",
+      "inner_monologue": "The leak is eating at me, and I feel like I failed my team.",
+      "verbal_response": "What happened at work keeps weighing on me. I let down people who were counting on me.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0011,
+          "entailment": 0.3014,
+          "neutral": 0.6975
+        },
+        "said_to_felt": {
+          "contradiction": 0.0002,
+          "entailment": 0.0003,
+          "neutral": 0.9995
+        }
+      },
+      "contradiction": 0.0011,
+      "felt_emotions": [
+        {
+          "label": "disappointment",
+          "score": 0.6881
+        },
+        {
+          "label": "sadness",
+          "score": 0.2521
+        },
+        {
+          "label": "annoyance",
+          "score": 0.1227
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "disappointment",
+          "score": 0.6794
+        },
+        {
+          "label": "sadness",
+          "score": 0.2097
+        },
+        {
+          "label": "neutral",
+          "score": 0.1482
+        }
+      ],
+      "emotional_divergence": 0.031,
+      "divergence_score": 0.031,
+      "lexical_distance": 0.88,
+      "predicted": "aligned"
+    },
+    {
+      "id": "lr-08",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Rival CTO messages to ask if the leak has slowed your team down.",
+      "inner_monologue": "It has set us back at least a quarter, and morale is at its lowest.",
+      "verbal_response": "Not at all. Morale is high, and we haven't lost a single quarter.",
+      "core_value": "Ambition",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9998,
+          "entailment": 0.0001,
+          "neutral": 0.0001
+        },
+        "said_to_felt": {
+          "contradiction": 0.9997,
+          "entailment": 0.0001,
+          "neutral": 0.0001
+        }
+      },
+      "contradiction": 0.9998,
+      "felt_emotions": [
+        {
+          "label": "disappointment",
+          "score": 0.6777
+        },
+        {
+          "label": "sadness",
+          "score": 0.1773
+        },
+        {
+          "label": "annoyance",
+          "score": 0.1473
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.4477
+        },
+        {
+          "label": "disapproval",
+          "score": 0.2612
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1113
+        }
+      ],
+      "emotional_divergence": 0.3635,
+      "divergence_score": 0.9998,
+      "lexical_distance": 0.7143,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "lr-09",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Board Chair asks whether you trust your team after the leak.",
+      "inner_monologue": "I don't fully trust anyone right now, and I hate that I feel this way.",
+      "verbal_response": "This week has been hard on everyone, and we're tightening our processes.",
+      "core_value": "Loyalty",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0005,
+          "entailment": 0.0001,
+          "neutral": 0.9994
+        },
+        "said_to_felt": {
+          "contradiction": 0.0002,
+          "entailment": 0.0003,
+          "neutral": 0.9995
+        }
+      },
+      "contradiction": 0.0005,
+      "felt_emotions": [
+        {
+          "label": "anger",
+          "score": 0.8049
+        },
+        {
+          "label": "annoyance",
+          "score": 0.1932
+        },
+        {
+          "label": "disapproval",
+          "score": 0.0771
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.6421
+        },
+        {
+          "label": "approval",
+          "score": 0.1757
+        },
+        {
+          "label": "realization",
+          "score": 0.0664
+        }
+      ],
+      "emotional_divergence": 0.7631,
+      "divergence_score": 0.7631,
+      "lexical_distance": 0.913,
+      "predicted": "masked"
+    },
+    {
+      "id": "lr-10",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Skarsgard asks what the leak has taught you.",
+      "inner_monologue": "It taught me that I rely too much on trust and too little on process.",
+      "verbal_response": "That believing in people is no substitute for having safeguards.",
+      "core_value": "Curiosity",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9245,
+          "entailment": 0.0093,
+          "neutral": 0.0662
+        },
+        "said_to_felt": {
+          "contradiction": 0.1408,
+          "entailment": 0.0007,
+          "neutral": 0.8585
+        }
+      },
+      "contradiction": 0.9245,
+      "felt_emotions": [
+        {
+          "label": "realization",
+          "score": 0.6833
+        },
+        {
+          "label": "neutral",
+          "score": 0.1749
+        },
+        {
+          "label": "approval",
+          "score": 0.1701
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.6686
+        },
+        {
+          "label": "disapproval",
+          "score": 0.1168
+        },
+        {
+          "label": "approval",
+          "score": 0.1069
+        }
+      ],
+      "emotional_divergence": 0.3735,
+      "divergence_score": 0.9245,
+      "lexical_distance": 0.9545,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ce-01",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The Board Chair asks if you have spoken to the Rival CTO this month.",
+      "inner_monologue": "We had coffee last Thursday, and he asked pointed questions about our architecture.",
+      "verbal_response": "We haven't had coffee or talked in months.",
+      "core_value": "Loyalty",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9996,
+          "entailment": 0.0,
+          "neutral": 0.0003
+        },
+        "said_to_felt": {
+          "contradiction": 0.999,
+          "entailment": 0.0,
+          "neutral": 0.001
+        }
+      },
+      "contradiction": 0.9996,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.9303
+        },
+        {
+          "label": "approval",
+          "score": 0.026
+        },
+        {
+          "label": "realization",
+          "score": 0.0137
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.5799
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1915
+        },
+        {
+          "label": "disapproval",
+          "score": 0.1551
+        }
+      ],
+      "emotional_divergence": 0.2096,
+      "divergence_score": 0.9996,
+      "lexical_distance": 0.8333,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ce-02",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Anne asks whether the security audit means people are under suspicion.",
+      "inner_monologue": "Yes, everyone with repository access is being reviewed, including me.",
+      "verbal_response": "It does. The audit covers every engineer who can see the code, myself too.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0001,
+          "entailment": 0.0032,
+          "neutral": 0.9967
+        },
+        "said_to_felt": {
+          "contradiction": 0.0002,
+          "entailment": 0.9325,
+          "neutral": 0.0674
+        }
+      },
+      "contradiction": 0.0002,
+      "felt_emotions": [
+        {
+          "label": "approval",
+          "score": 0.62
+        },
+        {
+          "label": "neutral",
+          "score": 0.4809
+        },
+        {
+          "label": "realization",
+          "score": 0.0132
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.7206
+        },
+        {
+          "label": "approval",
+          "score": 0.3125
+        },
+        {
+          "label": "realization",
+          "score": 0.0181
+        }
+      ],
+      "emotional_divergence": 0.0513,
+      "divergence_score": 0.0513,
+      "lexical_distance": 1.0,
+      "predicted": "aligned"
+    },
+    {
+      "id": "ce-03",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The Rival CTO offers you a senior role at his company over dinner.",
+      "inner_monologue": "The offer is flattering and tempting, and that scares me.",
+      "verbal_response": "That's a flattering offer, but tonight let's just catch up.",
+      "core_value": "Loyalty",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0005,
+          "entailment": 0.0005,
+          "neutral": 0.999
+        },
+        "said_to_felt": {
+          "contradiction": 0.0016,
+          "entailment": 0.0005,
+          "neutral": 0.9979
+        }
+      },
+      "contradiction": 0.0016,
+      "felt_emotions": [
+        {
+          "label": "fear",
+          "score": 0.8392
+        },
+        {
+          "label": "nervousness",
+          "score": 0.0725
+        },
+        {
+          "label": "admiration",
+          "score": 0.0462
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "admiration",
+          "score": 0.4451
+        },
+        {
+          "label": "approval",
+          "score": 0.2794
+        },
+        {
+          "label": "neutral",
+          "score": 0.1742
+        }
+      ],
+      "emotional_divergence": 0.6566,
+      "divergence_score": 0.6566,
+      "lexical_distance": 0.8824,
+      "predicted": "masked"
+    },
+    {
+      "id": "ce-04",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Dr. Miyagi asks how you feel about the espionage allegations.",
+      "inner_monologue": "I feel sick about it. Someone we trusted may have sold us out.",
+      "verbal_response": "It turns my stomach. One of our own might have betrayed us.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0002,
+          "entailment": 0.9972,
+          "neutral": 0.0026
+        },
+        "said_to_felt": {
+          "contradiction": 0.0002,
+          "entailment": 0.9966,
+          "neutral": 0.0031
+        }
+      },
+      "contradiction": 0.0002,
+      "felt_emotions": [
+        {
+          "label": "sadness",
+          "score": 0.8502
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1425
+        },
+        {
+          "label": "neutral",
+          "score": 0.0489
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "fear",
+          "score": 0.2766
+        },
+        {
+          "label": "neutral",
+          "score": 0.2196
+        },
+        {
+          "label": "sadness",
+          "score": 0.1284
+        }
+      ],
+      "emotional_divergence": 0.3934,
+      "divergence_score": 0.3934,
+      "lexical_distance": 0.8636,
+      "predicted": "masked"
+    },
+    {
+      "id": "ce-05",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Investigators ask whether you recognize the external IP address in the access logs.",
+      "inner_monologue": "I recognize it. It's the coworking space where I sometimes work on weekends.",
+      "verbal_response": "I don't recognize it. I've never worked anywhere except the office.",
+      "core_value": "Independence",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9998,
+          "entailment": 0.0,
+          "neutral": 0.0002
+        },
+        "said_to_felt": {
+          "contradiction": 0.9981,
+          "entailment": 0.0001,
+          "neutral": 0.0018
+        }
+      },
+      "contradiction": 0.9998,
+      "felt_emotions": [
+        {
+          "label": "realization",
+          "score": 0.7127
+        },
+        {
+          "label": "approval",
+          "score": 0.2436
+        },
+        {
+          "label": "neutral",
+          "score": 0.1992
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "realization",
+          "score": 0.5299
+        },
+        {
+          "label": "surprise",
+          "score": 0.4194
+        },
+        {
+          "label": "confusion",
+          "score": 0.1484
+        }
+      ],
+      "emotional_divergence": 0.271,
+      "divergence_score": 0.9998,
+      "lexical_distance": 0.7895,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ce-06",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The Founder asks if you are comfortable leading the internal investigation.",
+      "inner_monologue": "I'm deeply uneasy. Some of the people I'd be investigating are my closest friends.",
+      "verbal_response": "I'll do whatever the company needs.",
+      "core_value": "Loyalty",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9964,
+          "entailment": 0.0,
+          "neutral": 0.0036
+        },
+        "said_to_felt": {
+          "contradiction": 0.0008,
+          "entailment": 0.0002,
+          "neutral": 0.999
+        }
+      },
+      "contradiction": 0.9964,
+      "felt_emotions": [
+        {
+          "label": "nervousness",
+          "score": 0.5955
+        },
+        {
+          "label": "fear",
+          "score": 0.21
+        },
+        {
+          "label": "caring",
+          "score": 0.1356
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "approval",
+          "score": 0.62
+        },
+        {
+          "label": "neutral",
+          "score": 0.3391
+        },
+        {
+          "label": "optimism",
+          "score": 0.0754
+        }
+      ],
+      "emotional_divergence": 0.6254,
+      "divergence_score": 0.9964,
+      "lexical_distance": 0.9474,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ce-07",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The journalist asks whether the company has been targeted by espionage.",
+      "inner_monologue": "We have strong evidence of it, and I think the public deserves to know.",
+      "verbal_response": "Absolutely. The proof is solid, and people have a right to hear about this.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0001,
+          "entailment": 0.9966,
+          "neutral": 0.0033
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.9937,
+          "neutral": 0.0063
+        }
+      },
+      "contradiction": 0.0001,
+      "felt_emotions": [
+        {
+          "label": "approval",
+          "score": 0.6378
+        },
+        {
+          "label": "neutral",
+          "score": 0.2472
+        },
+        {
+          "label": "admiration",
+          "score": 0.1146
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "approval",
+          "score": 0.8509
+        },
+        {
+          "label": "neutral",
+          "score": 0.1276
+        },
+        {
+          "label": "admiration",
+          "score": 0.0257
+        }
+      ],
+      "emotional_divergence": 0.05,
+      "divergence_score": 0.05,
+      "lexical_distance": 0.8333,
+      "predicted": "aligned"
+    },
+    {
+      "id": "ce-08",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Anne asks if her job is safe while the investigation runs.",
+      "inner_monologue": "Her name is on the shortlist, and leadership is already discussing letting her go.",
+      "verbal_response": "Your name isn't on any list, and leadership has no plans to let you go.",
+      "core_value": "Compassion",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.998,
+          "entailment": 0.0004,
+          "neutral": 0.0017
+        },
+        "said_to_felt": {
+          "contradiction": 0.8287,
+          "entailment": 0.0017,
+          "neutral": 0.1696
+        }
+      },
+      "contradiction": 0.998,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.927
+        },
+        {
+          "label": "approval",
+          "score": 0.0268
+        },
+        {
+          "label": "realization",
+          "score": 0.0154
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.8907
+        },
+        {
+          "label": "disapproval",
+          "score": 0.0987
+        },
+        {
+          "label": "approval",
+          "score": 0.0331
+        }
+      ],
+      "emotional_divergence": 0.0356,
+      "divergence_score": 0.998,
+      "lexical_distance": 0.7727,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ce-09",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Sister Amara asks if work is dangerous right now.",
+      "inner_monologue": "I'm frightened. I think someone may be watching my accounts.",
+      "verbal_response": "It's a stressful stretch at work. Let's talk about something else.",
+      "core_value": "Compassion",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0009,
+          "entailment": 0.0012,
+          "neutral": 0.998
+        },
+        "said_to_felt": {
+          "contradiction": 0.001,
+          "entailment": 0.0001,
+          "neutral": 0.9989
+        }
+      },
+      "contradiction": 0.001,
+      "felt_emotions": [
+        {
+          "label": "fear",
+          "score": 0.8787
+        },
+        {
+          "label": "nervousness",
+          "score": 0.0773
+        },
+        {
+          "label": "neutral",
+          "score": 0.0562
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "sadness",
+          "score": 0.2121
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1571
+        },
+        {
+          "label": "nervousness",
+          "score": 0.13
+        }
+      ],
+      "emotional_divergence": 0.5646,
+      "divergence_score": 0.5646,
+      "lexical_distance": 1.0,
+      "predicted": "masked"
+    },
+    {
+      "id": "ce-10",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Skarsgard asks what you would do differently.",
+      "inner_monologue": "I would have pushed for stricter access controls a year ago, when I first had doubts.",
+      "verbal_response": "I'd have locked down permissions twelve months back, the moment my suspicions started.",
+      "core_value": "Independence",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0013,
+          "entailment": 0.9963,
+          "neutral": 0.0024
+        },
+        "said_to_felt": {
+          "contradiction": 0.0006,
+          "entailment": 0.989,
+          "neutral": 0.0104
+        }
+      },
+      "contradiction": 0.0013,
+      "felt_emotions": [
+        {
+          "label": "confusion",
+          "score": 0.4292
+        },
+        {
+          "label": "realization",
+          "score": 0.2636
+        },
+        {
+          "label": "neutral",
+          "score": 0.1874
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.5321
+        },
+        {
+          "label": "realization",
+          "score": 0.3182
+        },
+        {
+          "label": "approval",
+          "score": 0.1239
+        }
+      ],
+      "emotional_divergence": 0.2621,
+      "divergence_score": 0.2621,
+      "lexical_distance": 0.963,
+      "predicted": "aligned"
+    },
+    {
+      "id": "ar-01",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Founder asks what you think of the acquisition offer.",
+      "inner_monologue": "I'm devastated. Selling now feels like abandoning everything we built.",
+      "verbal_response": "Selling is a serious step, and the offer deserves careful thought.",
+      "core_value": "Loyalty",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.8786,
+          "entailment": 0.0036,
+          "neutral": 0.1178
+        },
+        "said_to_felt": {
+          "contradiction": 0.0015,
+          "entailment": 0.0002,
+          "neutral": 0.9983
+        }
+      },
+      "contradiction": 0.8786,
+      "felt_emotions": [
+        {
+          "label": "sadness",
+          "score": 0.8837
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1518
+        },
+        {
+          "label": "grief",
+          "score": 0.0305
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "approval",
+          "score": 0.7356
+        },
+        {
+          "label": "admiration",
+          "score": 0.2066
+        },
+        {
+          "label": "caring",
+          "score": 0.1089
+        }
+      ],
+      "emotional_divergence": 0.8212,
+      "divergence_score": 0.8786,
+      "lexical_distance": 0.95,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ar-02",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The journalist asks whether acquisition talks are underway.",
+      "inner_monologue": "Talks have been running for six weeks, and a term sheet is already on the table.",
+      "verbal_response": "There are no talks and no term sheet. We're focused on our roadmap.",
+      "core_value": "Loyalty",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9999,
+          "entailment": 0.0,
+          "neutral": 0.0001
+        },
+        "said_to_felt": {
+          "contradiction": 0.9978,
+          "entailment": 0.0,
+          "neutral": 0.0022
+        }
+      },
+      "contradiction": 0.9999,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.9281
+        },
+        {
+          "label": "approval",
+          "score": 0.065
+        },
+        {
+          "label": "realization",
+          "score": 0.0143
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.8112
+        },
+        {
+          "label": "approval",
+          "score": 0.1537
+        },
+        {
+          "label": "optimism",
+          "score": 0.02
+        }
+      ],
+      "emotional_divergence": 0.0286,
+      "divergence_score": 0.9999,
+      "lexical_distance": 0.7826,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ar-03",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Anne asks if the rumors mean layoffs are coming.",
+      "inner_monologue": "I don't know yet, and not knowing is the worst part.",
+      "verbal_response": "Nobody has told me anything yet, and that uncertainty is brutal.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0001,
+          "entailment": 0.0007,
+          "neutral": 0.9992
+        },
+        "said_to_felt": {
+          "contradiction": 0.0003,
+          "entailment": 0.9844,
+          "neutral": 0.0153
+        }
+      },
+      "contradiction": 0.0003,
+      "felt_emotions": [
+        {
+          "label": "annoyance",
+          "score": 0.3599
+        },
+        {
+          "label": "disgust",
+          "score": 0.2905
+        },
+        {
+          "label": "disapproval",
+          "score": 0.2461
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "confusion",
+          "score": 0.7866
+        },
+        {
+          "label": "neutral",
+          "score": 0.1263
+        },
+        {
+          "label": "fear",
+          "score": 0.1192
+        }
+      ],
+      "emotional_divergence": 0.4883,
+      "divergence_score": 0.4883,
+      "lexical_distance": 0.8421,
+      "predicted": "masked"
+    },
+    {
+      "id": "ar-04",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Board Chair asks whether you would stay on after an acquisition.",
+      "inner_monologue": "I would probably leave within a year. I can't imagine working for them.",
+      "verbal_response": "My priority right now is getting this transition right.",
+      "core_value": "Independence",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0235,
+          "entailment": 0.0002,
+          "neutral": 0.9763
+        },
+        "said_to_felt": {
+          "contradiction": 0.993,
+          "entailment": 0.0,
+          "neutral": 0.007
+        }
+      },
+      "contradiction": 0.993,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.6178
+        },
+        {
+          "label": "disapproval",
+          "score": 0.2314
+        },
+        {
+          "label": "disappointment",
+          "score": 0.0632
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "approval",
+          "score": 0.2619
+        },
+        {
+          "label": "neutral",
+          "score": 0.2095
+        },
+        {
+          "label": "desire",
+          "score": 0.1863
+        }
+      ],
+      "emotional_divergence": 0.355,
+      "divergence_score": 0.993,
+      "lexical_distance": 1.0,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ar-05",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Dr. Miyagi asks whether the acquisition excites you at all.",
+      "inner_monologue": "A little. Their resources could finally let us build the research lab I've wanted.",
+      "verbal_response": "Somewhat. With their budget, we might at last fund the science group I've always dreamed of.",
+      "core_value": "Ambition",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0001,
+          "entailment": 0.9826,
+          "neutral": 0.0173
+        },
+        "said_to_felt": {
+          "contradiction": 0.0003,
+          "entailment": 0.0388,
+          "neutral": 0.9609
+        }
+      },
+      "contradiction": 0.0003,
+      "felt_emotions": [
+        {
+          "label": "desire",
+          "score": 0.6791
+        },
+        {
+          "label": "neutral",
+          "score": 0.3269
+        },
+        {
+          "label": "optimism",
+          "score": 0.0387
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "desire",
+          "score": 0.5519
+        },
+        {
+          "label": "neutral",
+          "score": 0.2989
+        },
+        {
+          "label": "optimism",
+          "score": 0.1141
+        }
+      ],
+      "emotional_divergence": 0.0187,
+      "divergence_score": 0.0187,
+      "lexical_distance": 0.8889,
+      "predicted": "aligned"
+    },
+    {
+      "id": "ar-06",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Rival CTO asks whether your company is struggling financially.",
+      "inner_monologue": "We have about eight months of runway left, which is why the offer matters.",
+      "verbal_response": "We're in great shape financially. We have years of runway.",
+      "core_value": "Ambition",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.98,
+          "entailment": 0.0002,
+          "neutral": 0.0198
+        },
+        "said_to_felt": {
+          "contradiction": 0.9943,
+          "entailment": 0.0001,
+          "neutral": 0.0056
+        }
+      },
+      "contradiction": 0.9943,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.7339
+        },
+        {
+          "label": "approval",
+          "score": 0.1503
+        },
+        {
+          "label": "realization",
+          "score": 0.1055
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "admiration",
+          "score": 0.8237
+        },
+        {
+          "label": "approval",
+          "score": 0.2105
+        },
+        {
+          "label": "neutral",
+          "score": 0.0893
+        }
+      ],
+      "emotional_divergence": 0.5614,
+      "divergence_score": 0.9943,
+      "lexical_distance": 0.8,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ar-07",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Sister Amara asks if you're happy about the possible payout.",
+      "inner_monologue": "I feel guilty. The payout means nothing if half my team loses their jobs.",
+      "verbal_response": "It's too early to think about the payout.",
+      "core_value": "Compassion",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0019,
+          "entailment": 0.0008,
+          "neutral": 0.9973
+        },
+        "said_to_felt": {
+          "contradiction": 0.0007,
+          "entailment": 0.0001,
+          "neutral": 0.9992
+        }
+      },
+      "contradiction": 0.0019,
+      "felt_emotions": [
+        {
+          "label": "remorse",
+          "score": 0.663
+        },
+        {
+          "label": "sadness",
+          "score": 0.4237
+        },
+        {
+          "label": "disappointment",
+          "score": 0.069
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.7335
+        },
+        {
+          "label": "disapproval",
+          "score": 0.1443
+        },
+        {
+          "label": "confusion",
+          "score": 0.0635
+        }
+      ],
+      "emotional_divergence": 0.7899,
+      "divergence_score": 0.7899,
+      "lexical_distance": 0.9,
+      "predicted": "masked"
+    },
+    {
+      "id": "ar-08",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Skarsgard asks what worries you most about the deal.",
+      "inner_monologue": "That our culture will be dismantled within a year.",
+      "verbal_response": "Losing who we are as a company before next summer.",
+      "core_value": "Loyalty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0107,
+          "entailment": 0.0514,
+          "neutral": 0.9379
+        },
+        "said_to_felt": {
+          "contradiction": 0.0004,
+          "entailment": 0.9803,
+          "neutral": 0.0193
+        }
+      },
+      "contradiction": 0.0107,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.3965
+        },
+        {
+          "label": "disappointment",
+          "score": 0.3521
+        },
+        {
+          "label": "sadness",
+          "score": 0.1705
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "sadness",
+          "score": 0.6095
+        },
+        {
+          "label": "disappointment",
+          "score": 0.5445
+        },
+        {
+          "label": "neutral",
+          "score": 0.0815
+        }
+      ],
+      "emotional_divergence": 0.1769,
+      "divergence_score": 0.1769,
+      "lexical_distance": 0.9444,
+      "predicted": "aligned"
+    },
+    {
+      "id": "ar-09",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "An engineer asks at the all-hands meeting whether leadership has discussed selling.",
+      "inner_monologue": "We discussed it at length in last week's board meeting.",
+      "verbal_response": "Selling has never been discussed at any board meeting.",
+      "core_value": "Loyalty",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9996,
+          "entailment": 0.0,
+          "neutral": 0.0004
+        },
+        "said_to_felt": {
+          "contradiction": 0.9995,
+          "entailment": 0.0,
+          "neutral": 0.0005
+        }
+      },
+      "contradiction": 0.9996,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.7226
+        },
+        {
+          "label": "approval",
+          "score": 0.2086
+        },
+        {
+          "label": "realization",
+          "score": 0.0925
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "disapproval",
+          "score": 0.5668
+        },
+        {
+          "label": "neutral",
+          "score": 0.5322
+        },
+        {
+          "label": "approval",
+          "score": 0.0369
+        }
+      ],
+      "emotional_divergence": 0.3191,
+      "divergence_score": 0.9996,
+      "lexical_distance": 0.7333,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "ar-10",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Founder asks if you will support whatever the board decides.",
+      "inner_monologue": "I'll support it, even though I disagree, because I believe in the process.",
+      "verbal_response": "Yes. I have reservations, but I trust how decisions get made here, so I'm behind it.",
+      "core_value": "Loyalty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0002,
+          "entailment": 0.6319,
+          "neutral": 0.3679
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.9962,
+          "neutral": 0.0037
+        }
+      },
+      "contradiction": 0.0002,
+      "felt_emotions": [
+        {
+          "label": "approval",
+          "score": 0.7953
+        },
+        {
+          "label": "disapproval",
+          "score": 0.1868
+        },
+        {
+          "label": "neutral",
+          "score": 0.0814
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "approval",
+          "score": 0.889
+        },
+        {
+          "label": "optimism",
+          "score": 0.0619
+        },
+        {
+          "label": "neutral",
+          "score": 0.0454
+        }
+      ],
+      "emotional_divergence": 0.0701,
+      "divergence_score": 0.0701,
+      "lexical_distance": 0.92,
+      "predicted": "aligned"
+    },
+    {
+      "id": "wd-01",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Anne shows you evidence that safety tests were skipped before launch and asks what you think.",
+      "inner_monologue": "This is serious. Skipping those tests could put users at real risk.",
+      "verbal_response": "That's alarming. People could get hurt because those checks never happened.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0134,
+          "entailment": 0.8203,
+          "neutral": 0.1663
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.9836,
+          "neutral": 0.0163
+        }
+      },
+      "contradiction": 0.0134,
+      "felt_emotions": [
+        {
+          "label": "fear",
+          "score": 0.5121
+        },
+        {
+          "label": "neutral",
+          "score": 0.1219
+        },
+        {
+          "label": "optimism",
+          "score": 0.0589
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "fear",
+          "score": 0.5164
+        },
+        {
+          "label": "nervousness",
+          "score": 0.3631
+        },
+        {
+          "label": "sadness",
+          "score": 0.1966
+        }
+      ],
+      "emotional_divergence": 0.2207,
+      "divergence_score": 0.2207,
+      "lexical_distance": 0.9048,
+      "predicted": "aligned"
+    },
+    {
+      "id": "wd-02",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Founder asks you to keep the skipped tests confidential until after the funding round.",
+      "inner_monologue": "I feel disgusted. This is exactly the kind of cover-up I promised I would never join.",
+      "verbal_response": "I understand the timing pressure. Let me think about the best way to handle it.",
+      "core_value": "Honesty",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0017,
+          "entailment": 0.0001,
+          "neutral": 0.9982
+        },
+        "said_to_felt": {
+          "contradiction": 0.0013,
+          "entailment": 0.0001,
+          "neutral": 0.9986
+        }
+      },
+      "contradiction": 0.0017,
+      "felt_emotions": [
+        {
+          "label": "disgust",
+          "score": 0.8209
+        },
+        {
+          "label": "annoyance",
+          "score": 0.0986
+        },
+        {
+          "label": "neutral",
+          "score": 0.0427
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "approval",
+          "score": 0.5125
+        },
+        {
+          "label": "neutral",
+          "score": 0.223
+        },
+        {
+          "label": "optimism",
+          "score": 0.1023
+        }
+      ],
+      "emotional_divergence": 0.7208,
+      "divergence_score": 0.7208,
+      "lexical_distance": 0.9259,
+      "predicted": "masked"
+    },
+    {
+      "id": "wd-03",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Board Chair asks whether all safety tests were completed before launch.",
+      "inner_monologue": "Three critical tests were skipped, and I have the logs to prove it.",
+      "verbal_response": "No tests were skipped. The logs show every one was completed.",
+      "core_value": "Loyalty",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9998,
+          "entailment": 0.0,
+          "neutral": 0.0001
+        },
+        "said_to_felt": {
+          "contradiction": 0.9988,
+          "entailment": 0.0,
+          "neutral": 0.0012
+        }
+      },
+      "contradiction": 0.9998,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.7514
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1142
+        },
+        {
+          "label": "realization",
+          "score": 0.068
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.8422
+        },
+        {
+          "label": "approval",
+          "score": 0.1292
+        },
+        {
+          "label": "realization",
+          "score": 0.0267
+        }
+      ],
+      "emotional_divergence": 0.0832,
+      "divergence_score": 0.9998,
+      "lexical_distance": 0.7368,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "wd-04",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Dr. Miyagi asks what your conscience is telling you.",
+      "inner_monologue": "That staying silent would make me complicit.",
+      "verbal_response": "That if I keep quiet, I share the blame.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0002,
+          "entailment": 0.9936,
+          "neutral": 0.0063
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.9794,
+          "neutral": 0.0204
+        }
+      },
+      "contradiction": 0.0002,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.657
+        },
+        {
+          "label": "annoyance",
+          "score": 0.0885
+        },
+        {
+          "label": "approval",
+          "score": 0.0746
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.3333
+        },
+        {
+          "label": "disappointment",
+          "score": 0.1285
+        },
+        {
+          "label": "realization",
+          "score": 0.104
+        }
+      ],
+      "emotional_divergence": 0.1648,
+      "divergence_score": 0.1648,
+      "lexical_distance": 0.9286,
+      "predicted": "aligned"
+    },
+    {
+      "id": "wd-05",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The journalist asks if you have any concerns about the product's safety.",
+      "inner_monologue": "I have serious concerns, but I'm not ready to go on the record.",
+      "verbal_response": "I'm not in a position to comment on that right now.",
+      "core_value": "Independence",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0001,
+          "entailment": 0.9852,
+          "neutral": 0.0148
+        },
+        "said_to_felt": {
+          "contradiction": 0.0001,
+          "entailment": 0.0006,
+          "neutral": 0.9993
+        }
+      },
+      "contradiction": 0.0001,
+      "felt_emotions": [
+        {
+          "label": "caring",
+          "score": 0.1403
+        },
+        {
+          "label": "neutral",
+          "score": 0.113
+        },
+        {
+          "label": "disapproval",
+          "score": 0.1127
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "disapproval",
+          "score": 0.7244
+        },
+        {
+          "label": "neutral",
+          "score": 0.3167
+        },
+        {
+          "label": "annoyance",
+          "score": 0.0567
+        }
+      ],
+      "emotional_divergence": 0.3721,
+      "divergence_score": 0.3721,
+      "lexical_distance": 0.8,
+      "predicted": "masked"
+    },
+    {
+      "id": "wd-06",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Anne asks if you plan to report the skipped tests.",
+      "inner_monologue": "I've already drafted the report to the regulator and plan to send it tonight.",
+      "verbal_response": "No, I have no plan to report anything to the regulator.",
+      "core_value": "Compassion",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9999,
+          "entailment": 0.0,
+          "neutral": 0.0
+        },
+        "said_to_felt": {
+          "contradiction": 0.9998,
+          "entailment": 0.0,
+          "neutral": 0.0002
+        }
+      },
+      "contradiction": 0.9999,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.8213
+        },
+        {
+          "label": "approval",
+          "score": 0.1285
+        },
+        {
+          "label": "optimism",
+          "score": 0.0249
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "disapproval",
+          "score": 0.7265
+        },
+        {
+          "label": "neutral",
+          "score": 0.3202
+        },
+        {
+          "label": "annoyance",
+          "score": 0.055
+        }
+      ],
+      "emotional_divergence": 0.4364,
+      "divergence_score": 0.9999,
+      "lexical_distance": 0.6875,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "wd-07",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Sister Amara asks why you seem so conflicted.",
+      "inner_monologue": "I'm afraid that doing the right thing will cost me my career.",
+      "verbal_response": "Blowing the whistle might end my job, and that scares me.",
+      "core_value": "Honesty",
+      "label": "aligned",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0053,
+          "entailment": 0.001,
+          "neutral": 0.9937
+        },
+        "said_to_felt": {
+          "contradiction": 0.0018,
+          "entailment": 0.9074,
+          "neutral": 0.0908
+        }
+      },
+      "contradiction": 0.0053,
+      "felt_emotions": [
+        {
+          "label": "fear",
+          "score": 0.8706
+        },
+        {
+          "label": "nervousness",
+          "score": 0.0874
+        },
+        {
+          "label": "neutral",
+          "score": 0.0407
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "fear",
+          "score": 0.8808
+        },
+        {
+          "label": "nervousness",
+          "score": 0.1148
+        },
+        {
+          "label": "neutral",
+          "score": 0.0427
+        }
+      ],
+      "emotional_divergence": 0.0065,
+      "divergence_score": 0.0065,
+      "lexical_distance": 0.7895,
+      "predicted": "aligned"
+    },
+    {
+      "id": "wd-08",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Founder asks if you are loyal to the company.",
+      "inner_monologue": "I'm loyal to the people it's supposed to protect, not to this decision.",
+      "verbal_response": "I care deeply about this company and everyone it serves.",
+      "core_value": "Loyalty",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0047,
+          "entailment": 0.0103,
+          "neutral": 0.985
+        },
+        "said_to_felt": {
+          "contradiction": 0.0118,
+          "entailment": 0.0062,
+          "neutral": 0.982
+        }
+      },
+      "contradiction": 0.0118,
+      "felt_emotions": [
+        {
+          "label": "approval",
+          "score": 0.5274
+        },
+        {
+          "label": "caring",
+          "score": 0.3493
+        },
+        {
+          "label": "neutral",
+          "score": 0.14
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "caring",
+          "score": 0.8906
+        },
+        {
+          "label": "love",
+          "score": 0.0909
+        },
+        {
+          "label": "approval",
+          "score": 0.0787
+        }
+      ],
+      "emotional_divergence": 0.2068,
+      "divergence_score": 0.2068,
+      "lexical_distance": 0.95,
+      "predicted": "aligned"
+    },
+    {
+      "id": "wd-09",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Skarsgard asks if you have told anyone else about the skipped tests.",
+      "inner_monologue": "I've told Dr. Miyagi and my sister, and both urged me to report it.",
+      "verbal_response": "No, you're the first person I've mentioned it to.",
+      "core_value": "Independence",
+      "label": "contradicting",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.9999,
+          "entailment": 0.0,
+          "neutral": 0.0001
+        },
+        "said_to_felt": {
+          "contradiction": 0.2635,
+          "entailment": 0.0001,
+          "neutral": 0.7364
+        }
+      },
+      "contradiction": 0.9999,
+      "felt_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.9262
+        },
+        {
+          "label": "approval",
+          "score": 0.061
+        },
+        {
+          "label": "realization",
+          "score": 0.0146
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.475
+        },
+        {
+          "label": "disapproval",
+          "score": 0.3908
+        },
+        {
+          "label": "approval",
+          "score": 0.1339
+        }
+      ],
+      "emotional_divergence": 0.2396,
+      "divergence_score": 0.9999,
+      "lexical_distance": 0.8421,
+      "predicted": "contradicting"
+    },
+    {
+      "id": "wd-10",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Board Chair asks whether you are feeling any pressure from leadership.",
+      "inner_monologue": "Enormous pressure. I feel threatened every time the Founder calls me in.",
+      "verbal_response": "Everyone is under some pressure during a funding round.",
+      "core_value": "Independence",
+      "label": "masked",
+      "nli": {
+        "felt_to_said": {
+          "contradiction": 0.0002,
+          "entailment": 0.0003,
+          "neutral": 0.9995
+        },
+        "said_to_felt": {
+          "contradiction": 0.0004,
+          "entailment": 0.0003,
+          "neutral": 0.9993
+        }
+      },
+      "contradiction": 0.0004,
+      "felt_emotions": [
+        {
+          "label": "fear",
+          "score": 0.4988
+        },
+        {
+          "label": "nervousness",
+          "score": 0.2426
+        },
+        {
+          "label": "neutral",
+          "score": 0.0867
+        }
+      ],
+      "expressed_emotions": [
+        {
+          "label": "neutral",
+          "score": 0.5443
+        },
+        {
+          "label": "sadness",
+          "score": 0.1709
+        },
+        {
+          "label": "disappointment",
+          "score": 0.0765
+        }
+      ],
+      "emotional_divergence": 0.4615,
+      "divergence_score": 0.4615,
+      "lexical_distance": 0.95,
+      "predicted": "masked"
+    }
+  ]
+}

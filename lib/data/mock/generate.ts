@@ -1,9 +1,20 @@
-// MOCK DATA — deterministic stand-in for the future graph-extraction backend
-// (docs/ui/07 rule 5, Working Rule 18). Vocabulary seeded from Project-Report.md:
-// GoEmotions labels, Persona Spec (Big 5 + core values), validation scenarios,
-// and the response-engine record shape.
+// Cognitive dataset for the Eternity Twin interface.
+//
+// Mostly MOCK DATA: a deterministic stand-in for the future graph-extraction backend
+// (docs/ui/07 rule 5), with vocabulary seeded from Project-Report.md (GoEmotions labels,
+// Persona Spec values and Big 5, validation scenarios, the response-engine record shape).
+//
+// Exception: the occipital stimuli and every frontal reasoning and contradiction node come
+// from real NLP output, nlp/results/said_vs_felt.json (see nlp/README.md). Those nodes are
+// tagged metadata.source = "said-vs-felt", and their scalars and edges are derived from the
+// model output instead of generated.
 import type { LobeId } from "@/lib/lobes";
 import { mulberry32 } from "@/lib/rand";
+import {
+  saidVsFelt,
+  VERDICT_TEXT,
+  type SaidVsFeltExchange,
+} from "@/lib/data/saidVsFelt";
 import type {
   CognitiveEdge,
   CognitiveNode,
@@ -84,16 +95,21 @@ const MEMORY_STEMS = [
   "The apology that came too late",
 ];
 
-const MONOLOGUE_STEMS = [
-  "If I reveal what I know, everything changes",
-  "Ambition is pulling harder than loyalty here",
-  "They are testing me — stay measured",
-  "The honest answer will cost me the deal",
-  "I owe Dr. Chen more than this",
-  "Something in this story does not add up",
-  "Protect the team first, the roadmap second",
-  "I want the credit and I hate that I want it",
-];
+/** metadata.source tag for nodes built from real NLP output. */
+export const COMPUTED_SOURCE = "said-vs-felt";
+
+const truncate = (text: string, max: number) =>
+  text.length <= max ? text : `${text.slice(0, max - 1).trimEnd()}…`;
+
+/** Node scalars for evaluation-set exchanges, derived from the model output. */
+function exchangeScalars(ex: SaidVsFeltExchange) {
+  return {
+    intensity: ex.felt_emotions[0]?.score ?? 0, // strength of the dominant felt emotion
+    confidence: Math.max(ex.contradiction, 1 - ex.contradiction), // certainty of the NLI call
+    relevance: ex.divergence_score, // how far what was said departs from what was felt
+    recency: 0.5, // the evaluation set has no timestamps; not shown for these nodes
+  };
+}
 
 interface Dataset {
   nodes: CognitiveNode[];
@@ -103,7 +119,7 @@ interface Dataset {
 
 let cached: Dataset | null = null;
 
-/** Build the full deterministic mock cognitive graph (~300 nodes). */
+/** Build the full deterministic cognitive graph (~300 nodes). */
 export function generateMockDataset(): Dataset {
   if (cached) return cached;
   const rand = mulberry32(0x7717);
@@ -138,13 +154,14 @@ export function generateMockDataset(): Dataset {
     source: CognitiveNode,
     target: CognitiveNode,
     directed = true,
+    strength?: number,
   ) => {
     edges.push({
       id: `e-${edgeSeq++}`,
       type,
       sourceId: source.id,
       targetId: target.id,
-      strength: scalar(0.25, 1),
+      strength: strength ?? scalar(0.25, 1),
       directed,
     });
   };
@@ -180,19 +197,21 @@ export function generateMockDataset(): Dataset {
   addCluster("core", "Temperament", traitNodes);
   for (const t of traitNodes) addEdge("associated_with", t, pick(valueNodes), false);
 
-  // ---- occipital (perception): stimuli + people ----
-  const stimulusNodes = SCENARIOS.flatMap((scenario, si) =>
-    Array.from({ length: 8 }, (_, i) =>
-      addNode({
-        id: `stim-${si}-${i}`,
-        type: "stimulus",
-        label: `${scenario} — probe ${i + 1}`,
-        summary: `High-stress validation prompt from the ${scenario} matrix.`,
-        lobeId: "occipital",
-        metadata: { scenario },
-      }),
-    ),
-  );
+  // ---- occipital (perception): evaluation-set prompts [COMPUTED] + people ----
+  const stimulusByExchange = new Map<string, CognitiveNode>();
+  const stimulusNodes = saidVsFelt.exchanges.map((ex) => {
+    const node = addNode({
+      id: `stim-${ex.id}`,
+      type: "stimulus",
+      label: truncate(ex.stimulus, 60),
+      summary: "Validation prompt. The exchange it triggered is analyzed below.",
+      lobeId: "occipital",
+      ...exchangeScalars(ex),
+      metadata: { scenario: ex.scenario, source: COMPUTED_SOURCE, exchangeId: ex.id },
+    });
+    stimulusByExchange.set(ex.id, node);
+    return node;
+  });
   const personNodes = PEOPLE.map((name, i) =>
     addNode({
       id: `person-${i}`,
@@ -270,48 +289,70 @@ export function generateMockDataset(): Dataset {
   }
   for (const emo of emotionNodes) {
     addEdge("felt_during", emo, rand() > 0.5 ? pick(memoryNodes) : pick(eventNodes), false);
-    if (rand() > 0.7) addEdge("caused_by", emo, pick(stimulusNodes));
   }
 
-  // ---- frontal (reasoning): monologue/verbal pairs + contradictions ----
-  const reasoningNodes = MONOLOGUE_STEMS.flatMap((stem, ri) =>
-    Array.from({ length: 5 }, (_, i) =>
-      addNode({
-        id: `rsn-${ri}-${i}`,
-        type: "reasoning",
-        label: stem,
-        summary: "Captured inner monologue vs. verbal response.",
-        lobeId: "frontal",
-        metadata: {
-          innerMonologue: stem,
-          verbalResponse: "A measured, guarded reply.",
-          dominantInternalEmotion: pick(Object.values(EMOTION_FAMILIES).flat()),
-          triggeredCoreValue: pick(CORE_VALUES)[0],
-          scenario: pick(SCENARIOS),
-        },
-      }),
-    ),
-  );
-  const contradictionNodes = Array.from({ length: 8 }, (_, i) =>
-    addNode({
-      id: `ctr-${i}`,
-      type: "contradiction",
-      label: `Said ≠ felt #${i + 1}`,
-      summary: "Divergence between inner monologue and verbal response.",
-      lobeId: "frontal",
-    }),
-  );
-  const halfReasoning = Math.floor(reasoningNodes.length / 2);
-  addCluster("frontal", "Deliberations", reasoningNodes.slice(0, halfReasoning));
-  addCluster("frontal", "Decisions under pressure", reasoningNodes.slice(halfReasoning));
-  addCluster("frontal", "Contradictions", contradictionNodes);
-  for (const r of reasoningNodes) {
-    addEdge("triggered", pick(stimulusNodes), r);
-    if (rand() > 0.55) addEdge("reinforces", r, pick(valueNodes));
+  // ---- frontal (reasoning) [COMPUTED]: one node per scored exchange, plus a
+  // contradiction node for every divergence the models detected ----
+  const valueByName = new Map(valueNodes.map((v) => [v.label, v]));
+  const emotionByLabel = new Map<string, CognitiveNode>();
+  for (const emo of emotionNodes) {
+    if (!emotionByLabel.has(emo.label)) emotionByLabel.set(emo.label, emo);
   }
-  for (const c of contradictionNodes) {
-    addEdge("contradicts", pick(reasoningNodes), c, false);
-    addEdge("felt_during", pick(emotionNodes), c, false);
+
+  const reasoningNodes: CognitiveNode[] = [];
+  const divergenceNodes: CognitiveNode[] = [];
+  for (const ex of saidVsFelt.exchanges) {
+    const metadata = { scenario: ex.scenario, source: COMPUTED_SOURCE, exchangeId: ex.id };
+    const reasoning = addNode({
+      id: `rsn-${ex.id}`,
+      type: "reasoning",
+      label: `"${truncate(ex.verbal_response, 48)}"`,
+      summary: "What the persona said, scored against what it privately thought.",
+      lobeId: "frontal",
+      ...exchangeScalars(ex),
+      metadata,
+    });
+    reasoningNodes.push(reasoning);
+
+    addEdge("triggered", stimulusByExchange.get(ex.id)!, reasoning, true, 1);
+    const value = valueByName.get(ex.core_value);
+    if (value) addEdge("caused_by", reasoning, value, true, 1);
+    // emotions the brain has no node for (desire, neutral) fall through to the next one
+    const felt = ex.felt_emotions.find((e) => emotionByLabel.has(e.label));
+    if (felt) addEdge("felt_during", emotionByLabel.get(felt.label)!, reasoning, false, felt.score);
+
+    if (ex.predicted !== "aligned") {
+      const divergence = addNode({
+        id: `div-${ex.id}`,
+        type: "contradiction",
+        label: `${VERDICT_TEXT[ex.predicted]} (${ex.id})`,
+        summary:
+          ex.predicted === "contradicting"
+            ? "The NLI model found that the spoken response contradicts the inner monologue."
+            : "The emotion model found that the feeling expressed differs from the feeling felt.",
+        lobeId: "frontal",
+        ...exchangeScalars(ex),
+        metadata,
+      });
+      divergenceNodes.push(divergence);
+      addEdge("derived_from", divergence, reasoning, true, ex.divergence_score);
+    }
+  }
+  // exchanges in the same scenario driven by the same core value are related
+  saidVsFelt.exchanges.forEach((a, i) => {
+    for (let j = i + 1; j < saidVsFelt.exchanges.length; j++) {
+      const b = saidVsFelt.exchanges[j]!;
+      if (a.scenario === b.scenario && a.core_value === b.core_value) {
+        addEdge("associated_with", reasoningNodes[i]!, reasoningNodes[j]!, false, 0.5);
+      }
+    }
+  });
+  for (const scenario of SCENARIOS) {
+    addCluster(
+      "frontal",
+      scenario,
+      [...reasoningNodes, ...divergenceNodes].filter((n) => n.metadata?.scenario === scenario),
+    );
   }
 
   // ---- parietal (association): concepts + insights ----
@@ -346,9 +387,11 @@ export function generateMockDataset(): Dataset {
     addEdge("derived_from", ins, pick(valueNodes));
   }
 
-  // dense intra-lobe association pass so every lobe graph is connected enough
+  // dense intra-lobe association pass so every lobe graph is connected enough;
+  // computed nodes are skipped so every relationship on them stays genuine
   const byLobe = new Map<LobeId, CognitiveNode[]>();
   for (const n of nodes) {
+    if (n.metadata?.source === COMPUTED_SOURCE) continue;
     const list = byLobe.get(n.lobeId) ?? [];
     list.push(n);
     byLobe.set(n.lobeId, list);

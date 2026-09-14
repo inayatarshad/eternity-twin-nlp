@@ -2,7 +2,16 @@ import coreWebVitals from "eslint-config-next/core-web-vitals";
 import nextTypescript from "eslint-config-next/typescript";
 
 const eslintConfig = [
-  { ignores: ["node_modules/**", ".next/**", "out/**", "next-env.d.ts", "public/axe.min.js"] },
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "next-env.d.ts",
+      "public/axe.min.js",
+      "nlp/.venv/**", // Python virtual environment for the NLP pipeline
+    ],
+  },
   ...coreWebVitals,
   ...nextTypescript,
   {

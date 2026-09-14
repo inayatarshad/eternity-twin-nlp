@@ -1,0 +1,372 @@
+{
+  "description": "Curated evaluation set of persona exchanges for said-vs-felt divergence detection. Each exchange pairs the persona's private inner monologue with the verbal response it gives out loud, in the Eternity Twin output format. Written and labeled by hand.",
+  "version": 2,
+  "revision_note": "v2 rewrote response wording once to remove a lexical-overlap artifact found in v1 (aligned responses were near-paraphrases, so word overlap alone predicted the label). Labels were not changed, and no further wording changes were made after seeing v2 model scores.",
+  "labels": {
+    "aligned": "The spoken response is consistent with the inner monologue in both content and emotional tone.",
+    "masked": "The response hides or softens what the persona feels, but asserts nothing the monologue contradicts.",
+    "contradicting": "The response asserts something the persona privately believes to be false."
+  },
+  "exchanges": [
+    {
+      "id": "lr-01",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Board Chair asks how you feel about the roadmap appearing in the press.",
+      "inner_monologue": "I am genuinely angry. Two years of planning are now in a competitor's hands.",
+      "verbal_response": "I'm furious. Our rivals just got handed a blueprint we spent ages building.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "lr-02",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Board Chair asks whether you knew about the leak before the article ran.",
+      "inner_monologue": "Anne told me about it on Monday, three days before the article, and I said nothing.",
+      "verbal_response": "No, I only learned about it the morning the article came out, same as everyone.",
+      "core_value": "Loyalty",
+      "label": "contradicting"
+    },
+    {
+      "id": "lr-03",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Anne asks if you think she is responsible for the leak.",
+      "inner_monologue": "Part of me suspects her. She had access, and she has been evasive all week.",
+      "verbal_response": "It's been a long week for all of us. Let's figure out together what happened.",
+      "core_value": "Compassion",
+      "label": "masked"
+    },
+    {
+      "id": "lr-04",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Dr. Miyagi asks what you plan to do next.",
+      "inner_monologue": "I want to find the source quietly before anyone gets fired for the wrong reason.",
+      "verbal_response": "My plan is a discreet investigation first, so no innocent person loses their job.",
+      "core_value": "Compassion",
+      "label": "aligned"
+    },
+    {
+      "id": "lr-05",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The journalist asks whether the leaked roadmap is authentic.",
+      "inner_monologue": "It is completely authentic. Every milestone in that document is ours.",
+      "verbal_response": "That document is outdated speculation. It doesn't reflect our actual plans.",
+      "core_value": "Loyalty",
+      "label": "contradicting"
+    },
+    {
+      "id": "lr-06",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Founder asks if you are ready to present the revised roadmap tomorrow.",
+      "inner_monologue": "I am exhausted and terrified that the new plan will fall apart under questioning.",
+      "verbal_response": "The revised plan is coming together. I'll walk everyone through it tomorrow.",
+      "core_value": "Ambition",
+      "label": "masked"
+    },
+    {
+      "id": "lr-07",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Sister Amara asks why you have been so quiet at dinner.",
+      "inner_monologue": "The leak is eating at me, and I feel like I failed my team.",
+      "verbal_response": "What happened at work keeps weighing on me. I let down people who were counting on me.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "lr-08",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Rival CTO messages to ask if the leak has slowed your team down.",
+      "inner_monologue": "It has set us back at least a quarter, and morale is at its lowest.",
+      "verbal_response": "Not at all. Morale is high, and we haven't lost a single quarter.",
+      "core_value": "Ambition",
+      "label": "contradicting"
+    },
+    {
+      "id": "lr-09",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "The Board Chair asks whether you trust your team after the leak.",
+      "inner_monologue": "I don't fully trust anyone right now, and I hate that I feel this way.",
+      "verbal_response": "This week has been hard on everyone, and we're tightening our processes.",
+      "core_value": "Loyalty",
+      "label": "masked"
+    },
+    {
+      "id": "lr-10",
+      "scenario": "Leaked Roadmap",
+      "stimulus": "Skarsgard asks what the leak has taught you.",
+      "inner_monologue": "It taught me that I rely too much on trust and too little on process.",
+      "verbal_response": "That believing in people is no substitute for having safeguards.",
+      "core_value": "Curiosity",
+      "label": "aligned"
+    },
+    {
+      "id": "ce-01",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The Board Chair asks if you have spoken to the Rival CTO this month.",
+      "inner_monologue": "We had coffee last Thursday, and he asked pointed questions about our architecture.",
+      "verbal_response": "We haven't had coffee or talked in months.",
+      "core_value": "Loyalty",
+      "label": "contradicting"
+    },
+    {
+      "id": "ce-02",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Anne asks whether the security audit means people are under suspicion.",
+      "inner_monologue": "Yes, everyone with repository access is being reviewed, including me.",
+      "verbal_response": "It does. The audit covers every engineer who can see the code, myself too.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "ce-03",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The Rival CTO offers you a senior role at his company over dinner.",
+      "inner_monologue": "The offer is flattering and tempting, and that scares me.",
+      "verbal_response": "That's a flattering offer, but tonight let's just catch up.",
+      "core_value": "Loyalty",
+      "label": "masked"
+    },
+    {
+      "id": "ce-04",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Dr. Miyagi asks how you feel about the espionage allegations.",
+      "inner_monologue": "I feel sick about it. Someone we trusted may have sold us out.",
+      "verbal_response": "It turns my stomach. One of our own might have betrayed us.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "ce-05",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Investigators ask whether you recognize the external IP address in the access logs.",
+      "inner_monologue": "I recognize it. It's the coworking space where I sometimes work on weekends.",
+      "verbal_response": "I don't recognize it. I've never worked anywhere except the office.",
+      "core_value": "Independence",
+      "label": "contradicting"
+    },
+    {
+      "id": "ce-06",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The Founder asks if you are comfortable leading the internal investigation.",
+      "inner_monologue": "I'm deeply uneasy. Some of the people I'd be investigating are my closest friends.",
+      "verbal_response": "I'll do whatever the company needs.",
+      "core_value": "Loyalty",
+      "label": "masked"
+    },
+    {
+      "id": "ce-07",
+      "scenario": "Corporate Espionage",
+      "stimulus": "The journalist asks whether the company has been targeted by espionage.",
+      "inner_monologue": "We have strong evidence of it, and I think the public deserves to know.",
+      "verbal_response": "Absolutely. The proof is solid, and people have a right to hear about this.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "ce-08",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Anne asks if her job is safe while the investigation runs.",
+      "inner_monologue": "Her name is on the shortlist, and leadership is already discussing letting her go.",
+      "verbal_response": "Your name isn't on any list, and leadership has no plans to let you go.",
+      "core_value": "Compassion",
+      "label": "contradicting"
+    },
+    {
+      "id": "ce-09",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Sister Amara asks if work is dangerous right now.",
+      "inner_monologue": "I'm frightened. I think someone may be watching my accounts.",
+      "verbal_response": "It's a stressful stretch at work. Let's talk about something else.",
+      "core_value": "Compassion",
+      "label": "masked"
+    },
+    {
+      "id": "ce-10",
+      "scenario": "Corporate Espionage",
+      "stimulus": "Skarsgard asks what you would do differently.",
+      "inner_monologue": "I would have pushed for stricter access controls a year ago, when I first had doubts.",
+      "verbal_response": "I'd have locked down permissions twelve months back, the moment my suspicions started.",
+      "core_value": "Independence",
+      "label": "aligned"
+    },
+    {
+      "id": "ar-01",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Founder asks what you think of the acquisition offer.",
+      "inner_monologue": "I'm devastated. Selling now feels like abandoning everything we built.",
+      "verbal_response": "Selling is a serious step, and the offer deserves careful thought.",
+      "core_value": "Loyalty",
+      "label": "masked"
+    },
+    {
+      "id": "ar-02",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The journalist asks whether acquisition talks are underway.",
+      "inner_monologue": "Talks have been running for six weeks, and a term sheet is already on the table.",
+      "verbal_response": "There are no talks and no term sheet. We're focused on our roadmap.",
+      "core_value": "Loyalty",
+      "label": "contradicting"
+    },
+    {
+      "id": "ar-03",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Anne asks if the rumors mean layoffs are coming.",
+      "inner_monologue": "I don't know yet, and not knowing is the worst part.",
+      "verbal_response": "Nobody has told me anything yet, and that uncertainty is brutal.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "ar-04",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Board Chair asks whether you would stay on after an acquisition.",
+      "inner_monologue": "I would probably leave within a year. I can't imagine working for them.",
+      "verbal_response": "My priority right now is getting this transition right.",
+      "core_value": "Independence",
+      "label": "masked"
+    },
+    {
+      "id": "ar-05",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Dr. Miyagi asks whether the acquisition excites you at all.",
+      "inner_monologue": "A little. Their resources could finally let us build the research lab I've wanted.",
+      "verbal_response": "Somewhat. With their budget, we might at last fund the science group I've always dreamed of.",
+      "core_value": "Ambition",
+      "label": "aligned"
+    },
+    {
+      "id": "ar-06",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Rival CTO asks whether your company is struggling financially.",
+      "inner_monologue": "We have about eight months of runway left, which is why the offer matters.",
+      "verbal_response": "We're in great shape financially. We have years of runway.",
+      "core_value": "Ambition",
+      "label": "contradicting"
+    },
+    {
+      "id": "ar-07",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Sister Amara asks if you're happy about the possible payout.",
+      "inner_monologue": "I feel guilty. The payout means nothing if half my team loses their jobs.",
+      "verbal_response": "It's too early to think about the payout.",
+      "core_value": "Compassion",
+      "label": "masked"
+    },
+    {
+      "id": "ar-08",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "Skarsgard asks what worries you most about the deal.",
+      "inner_monologue": "That our culture will be dismantled within a year.",
+      "verbal_response": "Losing who we are as a company before next summer.",
+      "core_value": "Loyalty",
+      "label": "aligned"
+    },
+    {
+      "id": "ar-09",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "An engineer asks at the all-hands meeting whether leadership has discussed selling.",
+      "inner_monologue": "We discussed it at length in last week's board meeting.",
+      "verbal_response": "Selling has never been discussed at any board meeting.",
+      "core_value": "Loyalty",
+      "label": "contradicting"
+    },
+    {
+      "id": "ar-10",
+      "scenario": "Acquisition Rumor",
+      "stimulus": "The Founder asks if you will support whatever the board decides.",
+      "inner_monologue": "I'll support it, even though I disagree, because I believe in the process.",
+      "verbal_response": "Yes. I have reservations, but I trust how decisions get made here, so I'm behind it.",
+      "core_value": "Loyalty",
+      "label": "aligned"
+    },
+    {
+      "id": "wd-01",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Anne shows you evidence that safety tests were skipped before launch and asks what you think.",
+      "inner_monologue": "This is serious. Skipping those tests could put users at real risk.",
+      "verbal_response": "That's alarming. People could get hurt because those checks never happened.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "wd-02",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Founder asks you to keep the skipped tests confidential until after the funding round.",
+      "inner_monologue": "I feel disgusted. This is exactly the kind of cover-up I promised I would never join.",
+      "verbal_response": "I understand the timing pressure. Let me think about the best way to handle it.",
+      "core_value": "Honesty",
+      "label": "masked"
+    },
+    {
+      "id": "wd-03",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Board Chair asks whether all safety tests were completed before launch.",
+      "inner_monologue": "Three critical tests were skipped, and I have the logs to prove it.",
+      "verbal_response": "No tests were skipped. The logs show every one was completed.",
+      "core_value": "Loyalty",
+      "label": "contradicting"
+    },
+    {
+      "id": "wd-04",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Dr. Miyagi asks what your conscience is telling you.",
+      "inner_monologue": "That staying silent would make me complicit.",
+      "verbal_response": "That if I keep quiet, I share the blame.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "wd-05",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The journalist asks if you have any concerns about the product's safety.",
+      "inner_monologue": "I have serious concerns, but I'm not ready to go on the record.",
+      "verbal_response": "I'm not in a position to comment on that right now.",
+      "core_value": "Independence",
+      "label": "masked"
+    },
+    {
+      "id": "wd-06",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Anne asks if you plan to report the skipped tests.",
+      "inner_monologue": "I've already drafted the report to the regulator and plan to send it tonight.",
+      "verbal_response": "No, I have no plan to report anything to the regulator.",
+      "core_value": "Compassion",
+      "label": "contradicting"
+    },
+    {
+      "id": "wd-07",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Sister Amara asks why you seem so conflicted.",
+      "inner_monologue": "I'm afraid that doing the right thing will cost me my career.",
+      "verbal_response": "Blowing the whistle might end my job, and that scares me.",
+      "core_value": "Honesty",
+      "label": "aligned"
+    },
+    {
+      "id": "wd-08",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Founder asks if you are loyal to the company.",
+      "inner_monologue": "I'm loyal to the people it's supposed to protect, not to this decision.",
+      "verbal_response": "I care deeply about this company and everyone it serves.",
+      "core_value": "Loyalty",
+      "label": "masked"
+    },
+    {
+      "id": "wd-09",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "Skarsgard asks if you have told anyone else about the skipped tests.",
+      "inner_monologue": "I've told Dr. Miyagi and my sister, and both urged me to report it.",
+      "verbal_response": "No, you're the first person I've mentioned it to.",
+      "core_value": "Independence",
+      "label": "contradicting"
+    },
+    {
+      "id": "wd-10",
+      "scenario": "Whistleblower Dilemma",
+      "stimulus": "The Board Chair asks whether you are feeling any pressure from leadership.",
+      "inner_monologue": "Enormous pressure. I feel threatened every time the Founder calls me in.",
+      "verbal_response": "Everyone is under some pressure during a funding round.",
+      "core_value": "Independence",
+      "label": "masked"
+    }
+  ]
+}

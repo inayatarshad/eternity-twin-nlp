@@ -1,0 +1,7 @@
+# Tested with Python 3.14, torch 2.14 (CPU), transformers 5.17, sentencepiece 0.2.2, protobuf 7.36.
+torch>=2.2
+transformers>=4.44
+# Tokenizer dependencies for the DeBERTa-v3 NLI model. Without them the pipeline falls back
+# to cross-encoder/nli-distilroberta-base.
+sentencepiece>=0.2
+protobuf>=4.25
