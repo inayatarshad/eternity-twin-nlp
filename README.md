@@ -1,10 +1,15 @@
-# Eternity Twin: Cognitive Interface
+# Eternity Twin NLP: Interpretable Persona Modeling
 
-**A mind you can enter.** An immersive 3D interface that visualizes an AI persona's memory as a
-luminous, navigable brain. Hover a cognitive region to see it light up as real anatomy, then dive
-in and explore that region's memories, emotions, and reasoning as a living knowledge graph.
+**A mind you can enter, now with real language understanding underneath.** This is the NLP
+research edition of Eternity Twin: the same immersive 3D brain interface, extended so that what it
+shows (emotions, contradictions, memories, relationships) is computed from language by NLP models
+instead of placeholder data.
 
-**Live:** [digitalbrain-green.vercel.app](https://digitalbrain-green.vercel.app)
+**Original interface:** [digitalbrain-green.vercel.app](https://digitalbrain-green.vercel.app)
+(the visualization this project builds on)
+
+> Work in progress. The sections below describe the interface inherited from the original project;
+> the NLP layer is being added on top of it.
 
 ---
 
