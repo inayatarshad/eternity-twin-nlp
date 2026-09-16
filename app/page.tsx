@@ -31,6 +31,12 @@ export default function HomePage() {
           Enter the brain
         </Link>
         <Link
+          href="/how-it-works"
+          className="rounded-md border border-space-700 bg-space-800/60 px-4 py-2 text-sm text-text-primary transition-colors duration-(--dur-instant) hover:border-neural-cyan/60"
+        >
+          Read how it works
+        </Link>
+        <Link
           href="/dev/tokens"
           className="rounded-md border border-space-700 bg-space-800/60 px-4 py-2 text-sm text-text-primary transition-colors duration-(--dur-instant) hover:border-neural-cyan/60"
         >

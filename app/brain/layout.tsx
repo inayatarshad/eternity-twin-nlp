@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeft, Moon, Settings2, Sun } from "lucide-react";
+import { ArrowLeft, BookOpen, Moon, Settings2, Sun } from "lucide-react";
 import { LoadingExperience } from "@/components/chrome/LoadingExperience";
 import { Fallback2D } from "@/components/chrome/Fallback2D";
 import { LobeProxyList } from "@/components/chrome/LobeProxyList";
@@ -129,6 +129,13 @@ export default function BrainLayout({
           Eternity Twin
         </Link>
         <div className="pointer-events-auto flex items-center gap-4">
+          <Link
+            href="/how-it-works"
+            className="inline-flex items-center gap-1.5 rounded-pill border border-consciousness-gold/50 bg-consciousness-gold/10 px-3 py-1 text-sm text-text-primary transition-colors duration-(--dur-instant) hover:border-consciousness-gold"
+          >
+            <BookOpen aria-hidden="true" className="h-4 w-4" />
+            How it works
+          </Link>
           <button
             type="button"
             aria-label={

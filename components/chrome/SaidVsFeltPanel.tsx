@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Meter } from "@/components/ui/Meter";
 import {
   saidVsFelt,
@@ -112,6 +113,9 @@ export function SaidVsFeltPanel({ exchange }: { exchange: SaidVsFeltExchange }) 
         Computed by {models.nli} (contradiction) and {models.emotion} (emotions) on a
         hand-labeled evaluation set. Exchange {exchange.id}.
       </p>
+      <Link href="/how-it-works" className="text-sm text-neural-cyan hover:underline">
+        Read how this is worked out
+      </Link>
     </section>
   );
 }
