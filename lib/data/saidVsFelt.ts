@@ -39,7 +39,25 @@ export interface SaidVsFeltMeta {
   n_exchanges: number;
   thresholds: { contradiction: number; emotional_divergence: number };
   metrics: {
-    auroc: Record<string, Record<string, number>>;
+    auroc: {
+      divergent_vs_aligned: {
+        contradiction: number;
+        emotional_divergence: number;
+        combined: number;
+        lexical_baseline: number;
+        lexical_baseline_best_direction: number;
+      };
+      contradicting_vs_rest: {
+        contradiction: number;
+        lexical_baseline: number;
+        lexical_baseline_best_direction: number;
+      };
+      masked_vs_aligned: {
+        emotional_divergence: number;
+        lexical_baseline: number;
+        lexical_baseline_best_direction: number;
+      };
+    };
     three_way: { accuracy_leave_one_out: number; majority_baseline: number };
   };
 }
